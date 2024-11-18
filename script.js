@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Download Resume as PDF
-  document.getElementById("download-resume").addEventListener("click", () => {
+  document.getElementById("download-resume").addEventListener("click", async () => {
     const previewArea = document.getElementById("resume-preview");
     if (!previewArea.innerHTML.trim()) {
       alert("Please generate a resume preview first!");
@@ -109,8 +109,11 @@ document.addEventListener("DOMContentLoaded", () => {
       filename: 'Resume.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
     };
+
+    // Wait for rendering before generating the PDF
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     html2pdf().from(previewArea).set(opt).save();
   });
