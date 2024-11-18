@@ -37,6 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const about = document.getElementById("about").value || "Tell us about yourself.";
     const email = document.getElementById("email").value || "you@example.com";
     const phone = document.getElementById("phone").value || "123-456-7890";
+    const address = document.getElementById("address").value || "N/A";
+    const city = document.getElementById("city").value || "N/A";
+    const country = document.getElementById("country").value || "N/A";
 
     const skillsEntries = document.querySelectorAll(".skills-entry input");
     let skillsHTML = "";
@@ -48,84 +51,85 @@ document.addEventListener("DOMContentLoaded", () => {
     const experienceEntries = document.querySelectorAll(".experience-entry");
     let experienceHTML = "";
     experienceEntries.forEach((entry) => {
-      const role = entry.querySelector("input[placeholder='Software Engineer']").value || "N/A";
-      const company = entry.querySelector("input[placeholder='Tech Corp']").value || "N/A";
-      const startDate = entry.querySelector("input[type='date']").value || "N/A";
-      const endDate = entry.querySelectorAll("input[type='date']")[1].value || "N/A";
-      const description = entry.querySelector("textarea").value || "No description.";
+      const jobRole = entry.querySelector("input[placeholder='Software Engineer']").value || "No job role";
+      const company = entry.querySelector("input[placeholder='Tech Corp']").value || "No company";
+      const startDate = entry.querySelector("input[type='date']:nth-of-type(1)").value || "N/A";
+      const endDate = entry.querySelector("input[type='date']:nth-of-type(2)").value || "N/A";
+      const description = entry.querySelector("textarea").value || "No description";
       experienceHTML += `
-        <div>
-          <h5>${role} at ${company}</h5>
-          <p>${startDate} - ${endDate}</p>
-          <p>${description}</p>
-        </div>
+        <div><strong>${jobRole}</strong> at ${company} (${startDate} - ${endDate})</div>
+        <p>${description}</p>
       `;
     });
 
-    const profilePicture = document.getElementById("profile-picture").files[0];
-    const profileImageURL = profilePicture ? URL.createObjectURL(profilePicture) : "";
-
-    // Display Profile Image
-    const previewArea = document.getElementById("resume-preview");
-    previewArea.innerHTML = `
-      <div>
-        <div class="text-center">
-          <img src="${profileImageURL}" alt="Profile Picture" class="profile-image">
-        </div>
-        <h1>${name}</h1>
-        <h3>${profession}</h3>
-        <h4>About Me</h4>
-        <p>${about}</p>
-        <h4>Contact Details</h4>
-        <p>Email: ${email}</p>
-        <p>Phone: ${phone}</p>
-        <h4>Skills</h4>
-        <ul>${skillsHTML || "No skills added."}</ul>
-        <h4>Work Experience</h4>
-        ${experienceHTML || "No work experience added."}
-      </div>
+    // Create resume preview
+    const resumePreview = document.getElementById("resume-preview");
+    resumePreview.innerHTML = `
+      <h3>${name}</h3>
+      <p><em>${profession}</em></p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone}</p>
+      <p><strong>About Me:</strong> ${about}</p>
+      <p><strong>Address:</strong> ${address}, ${city}, ${country}</p>
+      <h4>Skills</h4>
+      <ul>${skillsHTML}</ul>
+      <h4>Work Experience</h4>
+      ${experienceHTML}
     `;
-    previewArea.scrollIntoView({ behavior: "smooth" });
   });
 
-  // Download Resume as PDF
+  // Download Resume Functionality
   document.getElementById("download-resume").addEventListener("click", () => {
-    const doc = new jsPDF();
-    const previewArea = document.getElementById("resume-preview");
+    const name = document.getElementById("full-name").value || "John Doe";
+    const profession = document.getElementById("profession").value || "Your Profession";
+    const about = document.getElementById("about").value || "Tell us about yourself.";
+    const email = document.getElementById("email").value || "you@example.com";
+    const phone = document.getElementById("phone").value || "123-456-7890";
+    const address = document.getElementById("address").value || "N/A";
+    const city = document.getElementById("city").value || "N/A";
+    const country = document.getElementById("country").value || "N/A";
 
-    // Prepare image for PDF
-    const profilePicture = document.getElementById("profile-picture").files[0];
-    const profileImageURL = profilePicture ? URL.createObjectURL(profilePicture) : "";
-
-    // Insert the image into the PDF if exists
-    if (profileImageURL) {
-      const img = new Image();
-      img.src = profileImageURL;
-      img.onload = function () {
-        // Draw the circle with a border for profile picture
-        doc.setFillColor(255, 255, 255); // Set background color for the image circle
-        doc.setLineWidth(3); // Set border thickness
-        doc.setDrawColor(0, 0, 0); // Set border color (black)
-        doc.ellipse(20, 20, 15, 15, 'S'); // Draw the circle border
-        doc.addImage(img, "JPEG", 10, 10, 30, 30); // Add the image inside the circle
-        generatePDFContent(doc, previewArea);
-      };
-    } else {
-      generatePDFContent(doc, previewArea);
-    }
-  });
-
-  // Helper function to generate content in PDF after image load
-  function generatePDFContent(doc, previewArea) {
-    doc.html(previewArea, {
-      callback: (doc) => {
-        doc.text("Created on resumicx.tholumuzi.co.za", 10, doc.internal.pageSize.height - 10, {
-          align: "center",
-        });
-        doc.save("resume.pdf");
-      },
-      x: 10,
-      y: 10,
+    const skillsEntries = document.querySelectorAll(".skills-entry input");
+    let skillsText = "Skills:\n";
+    skillsEntries.forEach((entry) => {
+      const skill = entry.value || "No skill added.";
+      skillsText += `- ${skill}\n`;
     });
-  }
+
+    const experienceEntries = document.querySelectorAll(".experience-entry");
+    let experienceText = "Work Experience:\n";
+    experienceEntries.forEach((entry) => {
+      const jobRole = entry.querySelector("input[placeholder='Software Engineer']").value || "No job role";
+      const company = entry.querySelector("input[placeholder='Tech Corp']").value || "No company";
+      const startDate = entry.querySelector("input[type='date']:nth-of-type(1)").value || "N/A";
+      const endDate = entry.querySelector("input[type='date']:nth-of-type(2)").value || "N/A";
+      const description = entry.querySelector("textarea").value || "No description";
+      experienceText += `\n${jobRole} at ${company} (${startDate} - ${endDate})\n${description}\n`;
+    });
+
+    const resumeText = `
+      ${name}
+      ${profession}
+
+      Email: ${email}
+      Phone: ${phone}
+      
+      About Me:
+      ${about}
+      
+      Address:
+      ${address}, ${city}, ${country}
+      
+      ${skillsText}
+      
+      ${experienceText}
+    `;
+
+    // Create a blob and download it as a text file
+    const blob = new Blob([resumeText], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `${name}_Resume.txt`;
+    link.click();
+  });
 });
