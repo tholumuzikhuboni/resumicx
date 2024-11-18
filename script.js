@@ -38,26 +38,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("email").value || "you@example.com";
     const phone = document.getElementById("phone").value || "123-456-7890";
 
-    // Collect all skills
     const skillsEntries = document.querySelectorAll(".skills-entry input");
     let skillsHTML = "<ul>";
     skillsEntries.forEach((entry) => {
-      const skill = entry.value.trim();
-      if (skill) {
-        skillsHTML += `<li>${skill}</li>`;
-      }
+      const skill = entry.value || "No skill added.";
+      skillsHTML += `<li>${skill}</li>`;
     });
     skillsHTML += "</ul>";
 
-    // Collect all work experience
     const experienceEntries = document.querySelectorAll(".experience-entry");
     let experienceHTML = "";
     experienceEntries.forEach((entry) => {
-      const role = entry.querySelector("input[placeholder='Software Engineer']").value.trim() || "N/A";
-      const company = entry.querySelector("input[placeholder='Tech Corp']").value.trim() || "N/A";
-      const startDate = entry.querySelectorAll("input[type='date']")[0]?.value || "N/A";
-      const endDate = entry.querySelectorAll("input[type='date']")[1]?.value || "N/A";
-      const description = entry.querySelector("textarea").value.trim() || "No description provided.";
+      const role = entry.querySelector("input[placeholder='Software Engineer']").value || "N/A";
+      const company = entry.querySelector("input[placeholder='Tech Corp']").value || "N/A";
+      const startDate = entry.querySelector("input[type='date']").value || "N/A";
+      const endDate = entry.querySelectorAll("input[type='date']")[1].value || "N/A";
+      const description = entry.querySelector("textarea").value || "No description.";
       experienceHTML += `
         <div>
           <h5>${role} at ${company}</h5>
@@ -67,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     });
 
-    // Handle profile picture
     const profilePicture = document.getElementById("profile-picture").files[0];
     const profileImageURL = profilePicture ? URL.createObjectURL(profilePicture) : "";
 
@@ -76,11 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     previewArea.innerHTML = `
       <div class="card p-3">
         <div class="text-center">
-          ${
-            profileImageURL
-              ? `<img src="${profileImageURL}" alt="Profile Picture" class="img-thumbnail" style="max-width: 150px;">`
-              : ""
-          }
+          ${profileImageURL ? `<img src="${profileImageURL}" alt="Profile Picture" class="img-thumbnail" style="max-width: 150px;">` : ""}
           <h2>${name}</h2>
           <h4>${profession}</h4>
         </div>
@@ -106,24 +97,28 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Download Resume as PDF
-  document.getElementById("download-resume").addEventListener("click", async () => {
+  document.getElementById("download-resume").addEventListener("click", () => {
     const previewArea = document.getElementById("resume-preview");
+
+    // Check if the preview is generated
     if (!previewArea.innerHTML.trim()) {
       alert("Please generate a resume preview first!");
       return;
     }
 
+    // Clone the preview area to avoid rendering issues
+    const clonedPreview = previewArea.cloneNode(true);
+
+    // Configure html2pdf options
     const opt = {
       margin: 1,
       filename: 'Resume.pdf',
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
+      html2canvas: { scale: 2, useCORS: true },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
     };
 
-    // Wait for rendering before generating the PDF
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    html2pdf().from(previewArea).set(opt).save();
+    // Render and download the PDF
+    html2pdf().set(opt).from(clonedPreview).save();
   });
 });
