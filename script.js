@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Wait until all images are fully loaded
+    // Ensure images are fully loaded
     const images = previewArea.querySelectorAll("img");
     await Promise.all(
       Array.from(images).map(
@@ -132,9 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
       html2canvas: { scale: 2 },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
     };
-
-    console.log("Generating PDF with the following content:");
-    console.log(previewArea.innerHTML);
 
     html2pdf().from(previewArea).set(opt).save();
   });
