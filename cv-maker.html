@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Maker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header with Hamburger Menu -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Resume Builder</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="cv-maker.html">CV Maker</a></li>
+          <li class="nav-item"><a class="nav-link" href="#privacy">Privacy Policy</a></li>
+          <li class="nav-item"><a class="nav-link" href="#terms">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CV Maker Content -->
+  <div class="container my-5">
+    <h2 class="text-center">Create Your Resume</h2>
+    <form id="resume-form">
+      <!-- Profile Picture Upload -->
+      <div class="mb-3">
+        <label for="profile-picture" class="form-label">Upload Profile Picture</label>
+        <input type="file" id="profile-picture" class="form-control">
+      </div>
+
+      <!-- Template Selection -->
+      <div class="mb-3">
+        <label class="form-label">Choose Template</label>
+        <select id="template-select" class="form-select">
+          <option value="1">Template 1</option>
+          <option value="2">Template 2</option>
+          <option value="3">Template 3</option>
+        </select>
+      </div>
+
+      <!-- Personal Details -->
+      <div class="mb-3">
+        <label for="full-name" class="form-label">Full Name</label>
+        <input type="text" id="full-name" class="form-control" placeholder="John Doe">
+      </div>
+      <div class="mb-3">
+        <label for="profession" class="form-label">Profession</label>
+        <input type="text" id="profession" class="form-control" placeholder="Web Developer">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" placeholder="you@example.com">
+      </div>
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input type="text" id="phone" class="form-control" placeholder="123-456-7890">
+      </div>
+      <div class="mb-3">
+        <label for="about" class="form-label">About Me</label>
+        <textarea id="about" class="form-control" rows="4"></textarea>
+      </div>
+
+      <!-- Contact Details Section -->
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <input type="text" id="address" class="form-control" placeholder="123 Street Name">
+      </div>
+      <div class="mb-3">
+        <label for="city" class="form-label">City</label>
+        <input type="text" id="city" class="form-control" placeholder="City Name">
+      </div>
+      <div class="mb-3">
+        <label for="country" class="form-label">Country</label>
+        <input type="text" id="country" class="form-control" placeholder="Country Name">
+      </div>
+
+      <!-- Skills Section -->
+      <div id="skills-section">
+        <h4>Skills</h4>
+        <div class="skills-entry mb-3">
+          <input type="text" class="form-control" placeholder="Add a skill">
+        </div>
+      </div>
+      <button type="button" class="btn btn-secondary mb-3" id="add-skill">Add More Skills</button>
+
+      <!-- Work Experience Section -->
+      <div id="experience-section">
+        <h4>Work Experience</h4>
+        <div class="experience-entry mb-3">
+          <label class="form-label">Job Role</label>
+          <input type="text" class="form-control" placeholder="Software Engineer">
+          <label class="form-label">Company Name</label>
+          <input type="text" class="form-control" placeholder="Tech Corp">
+          <label class="form-label">Start Date</label>
+          <input type="date" class="form-control">
+          <label class="form-label">End Date</label>
+          <input type="date" class="form-control">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" rows="3"></textarea>
+        </div>
+      </div>
+      <button type="button" class="btn btn-secondary mb-3" id="add-experience">Add More Experience</button>
+
+      <div class="mb-3">
+        <button type="button" class="btn btn-primary" id="generate-resume">Generate Resume</button>
+        <button type="button" class="btn btn-success" id="download-resume">Download Resume</button>
+      </div>
+    </form>
+
+    <!-- Resume Preview Section -->
+    <div id="resume-preview" class="mt-5"></div>
+  </div>
+
+  <!-- Include Bootstrap's JavaScript and Popper.js for the collapsible menu -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+</body>
+                                 </html>
