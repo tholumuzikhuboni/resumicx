@@ -1,0 +1,133 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+  margin: 0;
+  padding-top: 80px; /* For fixed navbar */
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #333;
+}
+
+h2.title-animation {
+  animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.btn-primary {
+  background-color: goldenrod;
+  border-color: #000;
+}
+
+#resume-preview {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  margin-top: 30px;
+}
+
+hr {
+  border-top: 1px solid #ddd;
+  margin-top: 50px;
+}
+
+/* Navbar Styling */
+.navbar {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav .nav-link {
+  color: 333;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar-nav  .nav-link:hover {
+  color: #fff;
+}
+
+/* Footer */
+footer {
+  background-color: #f8f9fa;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+footer p {
+  margin: 0;
+  font-size: 14px;
+  color: #6c757d;
+  text-align: center;
+}
+
+/* Additional padding for forms */
+#resume-form {
+  padding-top: 20px;
+}
+
+.experience-entry, .skills-entry {
+  margin-bottom: 15px;
+}
+
+/* Buttons */
+button {
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
+
+/* Skills Section Styling */
+#skills-section input {
+  margin-bottom: 10px;
+}
+
+#skills-section .skills-entry {
+  display: flex;
+  gap: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 20px;
+  }
+
+  #landing-page h1 {
+    font-size: 28px;
+  }
+
+  #landing-page p {
+    font-size: 16px;
+  }
+
+  #resume-form {
+    padding-top: 10px;
+  }
+}
+/* Profile Image Style with Border */
+.profile-image {
+  border-radius: 50%; /* Makes the image a circle */
+  width: 150px; /* Set width */
+  height: 150px; /* Set height */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  margin-bottom: 20px; /* Space below the image */
+  border: 5px solid #000; /* Add a border (black in this case, change to any color) */
+}
